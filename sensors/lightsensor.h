@@ -8,7 +8,7 @@ class LightSensor : public I2CDevice
 public:
     LightSensor();
 
-    double getLightValueInLux();
+    double getLightInLux();
 
 private:
     const static int LUX_LOW_BYTE_REG = 0x04;

@@ -1,6 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "sensors/lightsensor.h"
+#include "sensors/sensorbackend.h"
 
 int main(int argc, char *argv[])
 {
@@ -8,10 +8,7 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-    LightSensor s;
-    auto lux = s.getLightValueInLux();
-    s.closeDevice();
-
+    qmlRegisterType<SensorBackEnd>("sensors.sensorbackend", 1, 0, "SensorBackEnd");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

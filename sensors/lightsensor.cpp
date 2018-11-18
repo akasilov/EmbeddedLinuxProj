@@ -8,13 +8,16 @@ LightSensor::LightSensor()
     openDevice();
 }
 
-double LightSensor::getLightValueInLux()
+double LightSensor::getLightInLux()
 {
     quint8 mantissa = 0;
     quint8 exponent = 0;
 
+    // read low byte
     writeByte(LUX_LOW_BYTE_REG);
     mantissa = 0x0F & readByte();
+
+    // read low byte
     writeByte(LUX_HIGH_BYTE_REG);
     quint8 byteHigh = readByte();
     mantissa |= (0x0F & byteHigh) << 4;
