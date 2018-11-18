@@ -4,5 +4,6 @@
         <file>Acceleration.qml</file>
         <file>Color.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>Light.qml</file>
     </qresource>
 </RCC>

@@ -7,9 +7,11 @@ class I2CDevice
 {
 public:
     I2CDevice(QString name, int busId, quint8 i2cAddress);
+    virtual ~I2CDevice();
 
     // creates connection to a sensor
     bool openDevice();
+    void closeDevice();
     bool writeByte(quint8 byte);
     quint8 readByte();
 

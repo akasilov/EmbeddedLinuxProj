@@ -13,10 +13,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    main.cpp \
-    sensors/i2cdevice.cpp
+    gui/main.cpp \
+    drivers/i2cdevice.cpp \
+    sensors/lightsensor.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += gui/qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -29,5 +30,6 @@ target.path = /home/student/qt5
 INSTALLS += target
 
 HEADERS += \
-    sensors/drivers/i2c-dev.h \
-    sensors/i2cdevice.h
+    drivers/i2c-dev.h \
+    drivers/i2cdevice.h \
+    sensors/lightsensor.h

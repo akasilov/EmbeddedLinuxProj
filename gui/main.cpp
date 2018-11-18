@@ -1,6 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "sensors/i2cdevice.h"
+#include "sensors/lightsensor.h"
 
 int main(int argc, char *argv[])
 {
@@ -8,8 +8,9 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-    I2CDevice s("Accelerometer", 4, 0x4A);
-    s.openDevice();
+    LightSensor s;
+    auto lux = s.getLightValueInLux();
+    s.closeDevice();
 
 
     QQmlApplicationEngine engine;

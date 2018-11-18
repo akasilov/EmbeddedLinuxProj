@@ -12,6 +12,9 @@ ApplicationWindow {
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
 
+        Light {
+        }
+
         Acceleration {
         }
 
@@ -24,10 +27,14 @@ ApplicationWindow {
         currentIndex: swipeView.currentIndex
 
         TabButton {
-            text: qsTr("Page 1")
+            text: qsTr("Light")
+        }
+
+        TabButton {
+            text: qsTr("Acceleration")
         }
         TabButton {
-            text: qsTr("Page 2")
+            text: qsTr("Color")
         }
     }
 }

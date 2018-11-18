@@ -1,15 +1,15 @@
 #include <QDebug>
-
 #include <iostream>
 #include "i2cdevice.h"
 
 extern "C" {
-#include "drivers/i2c-dev.h"
+#include "i2c-dev.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 }
 
 I2CDevice::I2CDevice(QString name, int busId, quint8 i2cAddress)
@@ -27,17 +27,24 @@ I2CDevice::I2CDevice(QString name, int busId, quint8 i2cAddress)
     }
     else
     {
-        qInfo() << "Sensor" << mDeviceName << "created";
+        qInfo() << "Sensor" << mDeviceName << "opened";
     }
+}
+
+I2CDevice::~I2CDevice()
+{
+    closeDevice();
 }
 
 bool I2CDevice::openDevice()
 {
-    setSlaveAddress(true);
+    return setSlaveAddress(true);
+}
 
-    writeByte(0x04);
-    readByte();
-    return true;
+void I2CDevice::closeDevice()
+{
+    close(mDeviceFd);
+    qInfo() << "Sensor" << mDeviceName << "closed";
 }
 
 bool I2CDevice::writeByte(quint8 byte)
