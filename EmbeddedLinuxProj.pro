@@ -13,7 +13,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp
+    main.cpp \
+    sensors/i2cdevice.cpp
 
 RESOURCES += qml.qrc
 
@@ -26,3 +27,7 @@ QML_DESIGNER_IMPORT_PATH =
 # Default rules for deployment.
 target.path = /home/student/qt5
 INSTALLS += target
+
+HEADERS += \
+    sensors/drivers/i2c-dev.h \
+    sensors/i2cdevice.h
