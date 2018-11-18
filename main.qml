@@ -24,10 +24,10 @@ ApplicationWindow {
         currentIndex: swipeView.currentIndex
 
         TabButton {
-            text: qsTr("Acceleration")
+            text: qsTr("Page 1")
         }
         TabButton {
-            text: qsTr("Color")
+            text: qsTr("Page 2")
         }
     }
 }
