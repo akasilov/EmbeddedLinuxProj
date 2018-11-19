@@ -3,9 +3,8 @@ import QtQuick.Controls 2.2
 import sensors.sensorbackend 1.0
 
 Page {
-    width: 760
-    height: 400
-
+    width: 800
+    height: 480
 
     header: Label {
         text: qsTr("Light")

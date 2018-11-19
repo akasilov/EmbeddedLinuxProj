@@ -5,5 +5,6 @@
         <file>Color.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>Light.qml</file>
+        <file>content/Bluebubble.svg</file>
     </qresource>
 </RCC>
