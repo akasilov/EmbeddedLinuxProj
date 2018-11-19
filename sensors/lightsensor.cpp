@@ -13,7 +13,7 @@ double LightSensor::getLightInLux()
     quint8 mantissa = 0;
     quint8 exponent = 0;
 
-    // read low byte
+    // read low byte.
     writeByte(LUX_LOW_BYTE_REG);
     mantissa = 0x0F & readByte();
 
