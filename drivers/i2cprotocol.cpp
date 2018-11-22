@@ -1,6 +1,6 @@
 #include <QDebug>
 #include <iostream>
-#include "i2cdevice2.h"
+#include "i2cprotocol.h"
 
 extern "C" {
 //#include "i2c-dev.h"
@@ -14,10 +14,22 @@ extern "C" {
 #include <unistd.h>
 }
 
-I2CDevice2::I2CDevice2(QString name, int busId, quint8 i2cAddress)
+I2CProtocol::I2CProtocol(int busId, quint8 i2cAddress, bool open)
     : mSlaveAddress(i2cAddress),
-      mFileName(QString("/dev/i2c-") + QString::number(busId)),
-      mDeviceName(name)
+      mFileName(QString("/dev/i2c-") + QString::number(busId))
+{
+    if (open && openDevice())
+    {
+        setSlaveAddress(true);
+    }
+}
+
+I2CProtocol::~I2CProtocol()
+{
+    closeDevice();
+}
+
+bool I2CProtocol::openDevice()
 {
     qDebug() << "Opening file" << mFileName;
     mDeviceFd = open(mFileName.toStdString().c_str(), O_RDWR);
@@ -25,37 +37,24 @@ I2CDevice2::I2CDevice2(QString name, int busId, quint8 i2cAddress)
     if (mDeviceFd < 0)
     {
         qCritical() << "Could not open" << mFileName;
-        exit(1);
+        return false;
     }
-    else
-    {
-        qInfo() << "Sensor" << mDeviceName << "opened";
-    }
+    return true;
 }
 
-I2CDevice2::~I2CDevice2()
-{
-    closeDevice();
-}
-
-bool I2CDevice2::openDevice()
-{
-    return setSlaveAddress(true);
-}
-
-void I2CDevice2::closeDevice()
+void I2CProtocol::closeDevice()
 {
     close(mDeviceFd);
     qInfo() << "Sensor" << mDeviceName << "closed";
 }
 
-bool I2CDevice2::writeByte(quint8 byte)
+bool I2CProtocol::writeByte(quint8 byte)
 {
     quint8 buffer[1] = {byte};
     return writeBytes(buffer, 1);
 }
 
-bool I2CDevice2::writeBytes(quint8 *buffer, quint8 length)
+bool I2CProtocol::writeBytes(quint8 *buffer, quint8 length)
 {
     if (buffer == Q_NULLPTR)
     {
@@ -77,7 +76,7 @@ bool I2CDevice2::writeBytes(quint8 *buffer, quint8 length)
     }
 }
 
-quint8 I2CDevice2::readByte()
+quint8 I2CProtocol::readByte()
 {
     quint8 buffer[1] = {0};
 
@@ -86,7 +85,7 @@ quint8 I2CDevice2::readByte()
     return static_cast<quint8>(buffer[0]);
 }
 
-bool I2CDevice2::readBytes(quint8 *buffer, quint8 length)
+bool I2CProtocol::readBytes(quint8 *buffer, quint8 length)
 {
     if (buffer == Q_NULLPTR)
     {
@@ -108,7 +107,7 @@ bool I2CDevice2::readBytes(quint8 *buffer, quint8 length)
     }
 }
 
-bool I2CDevice2::setSlaveAddress(bool force)
+bool I2CProtocol::setSlaveAddress(bool force)
 {
     /* With force, let the user read from/write to the registers
        even when a driver is also running */

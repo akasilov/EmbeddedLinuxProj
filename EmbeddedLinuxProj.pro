@@ -14,12 +14,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     gui/main.cpp \
-    drivers/i2cdevice.cpp \
     sensors/lightsensor.cpp \
     sensors/sensorbackend.cpp \
     sensors/accelsensor.cpp \
     sensors/colorsensor.cpp \
-    drivers/i2cdevice2.cpp
+    sensors/sensor.cpp \
+    drivers/i2cprotocol.cpp
 
 RESOURCES += gui/qml.qrc
 
@@ -35,9 +35,9 @@ INSTALLS += target
 
 HEADERS += \
     drivers/i2c-dev.h \
-    drivers/i2cdevice.h \
     sensors/lightsensor.h \
     sensors/sensorbackend.h \
     sensors/accelsensor.h \
     sensors/colorsensor.h \
-    drivers/i2cdevice2.h
+    sensors/sensor.h \
+    drivers/i2cprotocol.h

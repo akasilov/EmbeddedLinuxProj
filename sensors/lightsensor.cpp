@@ -1,11 +1,16 @@
 #include "lightsensor.h"
+#include "drivers/i2cprotocol.h"
 #include <QtCore/qmath.h>
 #include <QDebug>
 
+
 LightSensor::LightSensor()
-  : I2CDevice2("Light", 4, LightSensor::I2C_ADDRESS)
+    : Sensor("LighSensor", new I2CProtocol(4, LightSensor::I2C_ADDRESS))
+{}
+
+QString LightSensor::getReadingAsString()
 {
-    openDevice();
+    return QString::number(getLightInLux());
 }
 
 double LightSensor::getLightInLux()
@@ -14,12 +19,12 @@ double LightSensor::getLightInLux()
     quint8 exponent = 0;
 
     // read low byte.
-    writeByte(LUX_LOW_BYTE_REG);
-    mantissa = 0x0F & readByte();
+    mProto->writeByte(LUX_LOW_BYTE_REG);
+    mantissa = 0x0F & mProto->readByte();
 
     // read low byte
-    writeByte(LUX_HIGH_BYTE_REG);
-    quint8 byteHigh = readByte();
+    mProto->writeByte(LUX_HIGH_BYTE_REG);
+    quint8 byteHigh = mProto->readByte();
     mantissa |= (0x0F & byteHigh) << 4;
     exponent = (byteHigh & 0xF0) >> 4;
 

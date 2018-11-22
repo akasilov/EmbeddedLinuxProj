@@ -3,21 +3,25 @@
 
 #include <QString>
 
-class I2CDevice2
+class I2CProtocol
 {
 public:
-    I2CDevice2(QString name, int busId, quint8 i2cAddress);
-    virtual ~I2CDevice2();
+    I2CProtocol(int busId, quint8 i2cAddress, bool open = true);
+    virtual ~I2CProtocol();
 
-    // creates connection to a sensor
-    bool openDevice();
-    void closeDevice();
     bool writeByte(quint8 byte);
     bool writeBytes(quint8 *buffer, quint8 length);
     quint8 readByte();
     bool readBytes(quint8 *buffer, quint8 length);
 
+protected:
+    // creates connection to a sensor
+    bool openDevice();
+    // closes connection to a sensor
+    void closeDevice();
+
 private:
+    // set slave address
     bool setSlaveAddress(bool force);
 
 private:

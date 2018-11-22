@@ -1,7 +1,7 @@
 #ifndef COLORSENSOR_H
 #define COLORSENSOR_H
 
-#include "drivers/i2cdevice2.h"
+#include "sensor.h"
 
 struct rgbColorAdc
 {
@@ -11,12 +11,12 @@ struct rgbColorAdc
     quint16 Blue;
 };
 
-class ColorSensor : public I2CDevice2
+class ColorSensor : public Sensor
 {
 public:
     ColorSensor();
-    rgbColorAdc getColors(void);
 
+    virtual QString getReadingAsString() override;
 
     void enableSensor();
     void disableSensor();
@@ -25,6 +25,7 @@ public:
 
 
 private:
+    rgbColorAdc getColors(void);
 
     void initSensor();
     quint8 readFromRegister(quint8 reg);

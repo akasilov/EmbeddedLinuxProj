@@ -1,13 +1,15 @@
 #include "colorsensor.h"
+#include "drivers/i2cprotocol.h"
 #include <QDebug>
 
 ColorSensor::ColorSensor()
-  : I2CDevice2("Color", 4, ColorSensor::I2C_ADDRESS)
+    : Sensor("ColorSensor", new I2CProtocol(4, ColorSensor::I2C_ADDRESS))
+{}
+
+QString ColorSensor::getReadingAsString()
 {
-    if (openDevice() == true)
-    {
-        initSensor();
-    }
+    auto colors = getColors();
+    return QString::number(colors.Clear) + " Red: " + QString::number(colors.Red) + " Green: " + QString::number(colors.Green) + " Blue: " + QString::number(colors.Blue);
 }
 
 /* read out color data from sensor */
@@ -25,7 +27,7 @@ rgbColorAdc ColorSensor::getColors()
         isOk = writeToRegister(CDATAL_REG, CMD_INCREMENT | CDATAL_REG);
         if (isOk == true)
         {
-            isOk = readBytes(buffer, length);
+            isOk = mProto->readBytes(buffer, length);
         }
         if (isOk == true)
         {
@@ -81,16 +83,16 @@ void ColorSensor::setRgbcGain(quint8 value)
 
 quint8 ColorSensor::readFromRegister(quint8 reg)
 {
-    writeByte(CMD_REPEATED | reg); /* CMD: select desired register */
-    return readByte(); /* read from register */
+    mProto->writeByte(CMD_REPEATED | reg); /* CMD: select desired register */
+    return mProto->readByte(); /* read from register */
 }
 
 bool ColorSensor::writeToRegister(quint8 reg, quint8 value)
 {
-    bool b = writeByte(CMD_REPEATED | reg); /* CMD: desired register */
+    bool b = mProto->writeByte(CMD_REPEATED | reg); /* CMD: desired register */
     if (b == true)
     {
-        b = writeByte(value); /* write to selected register */
+        b = mProto->writeByte(value); /* write to selected register */
     }
     return b;
 }

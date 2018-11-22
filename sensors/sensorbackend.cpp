@@ -1,31 +1,43 @@
 #include <QDebug>
 #include "sensorbackend.h"
 #include "colorsensor.h"
-//#include <QThread>
+#include "lightsensor.h"
 
 SensorBackEnd::SensorBackEnd(QObject *parent) :
     QObject(parent),
-    mLightValueLux(0.)
+    updateTimer(new QTimer(this))
 {
-    updateTimer = new QTimer(this);
-    connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateReading()));
+    emit readingsChanged();
+    //updateTimer = new QTimer(this);
+    connect(updateTimer, SIGNAL(timeout()), this, SIGNAL(readingsChanged()));
     updateTimer->start(500);
-    //updateReading();
 }
 
 QString SensorBackEnd::getReading()
 {
-    return QString::number(mLightValueLux);
+    return mSensor->getReadingAsString();
 }
 
-QString SensorBackEnd::getColorReading()
+void SensorBackEnd::setSensorType(QString sensorType)
 {
-    return "Clear: " + QString::number(cData.Clear) + " Red: " + QString::number(cData.Red) + " Green: " + QString::number(cData.Green) + " Blue: " + QString::number(cData.Blue);
+    mSensorType = sensorType;
+    if (sensorType == "light")
+    {
+        mSensor.reset(new LightSensor());
+    }
+    else if (sensorType == "color")
+    {
+        mSensor.reset(new ColorSensor());
+    }
+    else
+    {
+        qWarning() << "Unknown sensor type";
+    }
 }
 
-void SensorBackEnd::updateReading() {
-    mLightValueLux = mSensor.getLightInLux();
-    //QThread::msleep(5);
-    cData = cSensor.getColors(); //memory leak ???
-    emit readingsChanged();
+QString SensorBackEnd::getSensorType() const
+{
+    return mSensorType;
 }
+
+

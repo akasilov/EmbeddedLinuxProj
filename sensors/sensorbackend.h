@@ -4,32 +4,27 @@
 #include <QObject>
 #include <QString>
 #include <QTimer>
-#include "lightsensor.h"
-#include "colorsensor.h"
+#include "sensor.h"
 
 class SensorBackEnd : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString sensorReading READ getReading NOTIFY readingsChanged)
-    Q_PROPERTY(QString cSensorReading READ getColorReading NOTIFY readingsChanged)
+    Q_PROPERTY(QString sensorType READ getSensorType WRITE setSensorType)
 
 public:
     explicit SensorBackEnd(QObject *parent = nullptr);
+    void setSensorType(QString sensorType);
+    QString getSensorType() const;
     QString getReading();
-    QString getColorReading();
-
-public slots:
-    void updateReading();
 
 signals:
     void readingsChanged();
 
 private:
-    QTimer *updateTimer;
-    LightSensor mSensor;
-    double mLightValueLux;
-    ColorSensor cSensor;
-    rgbColorAdc cData;
+    QString mSensorType;
+    QTimer* updateTimer {nullptr};
+    QScopedPointer<Sensor> mSensor;
 };
 
 #endif // SENSORBACKEND_H
