@@ -1,9 +1,9 @@
 #ifndef LIGHTSENSOR_H
 #define LIGHTSENSOR_H
 
-#include "drivers/i2cdevice.h"
+#include "drivers/i2cdevice2.h"
 
-class LightSensor : public I2CDevice
+class LightSensor : public I2CDevice2
 {
 public:
     LightSensor();

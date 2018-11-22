@@ -1,9 +1,9 @@
 #ifndef ACCELSENSOR_H
 #define ACCELSENSOR_H
 
-#include "drivers/i2cdevice.h"
+#include "drivers/i2cdevice2.h"
 
-class AccelSensor: public I2CDevice
+class AccelSensor: public I2CDevice2
 {
 public:
     AccelSensor();

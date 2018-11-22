@@ -1,18 +1,20 @@
 #include <QDebug>
 #include <iostream>
-#include "i2cdevice.h"
+#include "i2cdevice2.h"
 
 extern "C" {
-#include "i2c-dev.h"
+//#include "i2c-dev.h"
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/ioctl.h>
+#include <linux/i2c-dev.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 }
 
-I2CDevice::I2CDevice(QString name, int busId, quint8 i2cAddress)
+I2CDevice2::I2CDevice2(QString name, int busId, quint8 i2cAddress)
     : mSlaveAddress(i2cAddress),
       mFileName(QString("/dev/i2c-") + QString::number(busId)),
       mDeviceName(name)
@@ -31,50 +33,82 @@ I2CDevice::I2CDevice(QString name, int busId, quint8 i2cAddress)
     }
 }
 
-I2CDevice::~I2CDevice()
+I2CDevice2::~I2CDevice2()
 {
     closeDevice();
 }
 
-bool I2CDevice::openDevice()
+bool I2CDevice2::openDevice()
 {
     return setSlaveAddress(true);
 }
 
-void I2CDevice::closeDevice()
+void I2CDevice2::closeDevice()
 {
     close(mDeviceFd);
     qInfo() << "Sensor" << mDeviceName << "closed";
 }
 
-bool I2CDevice::writeByte(quint8 byte)
+bool I2CDevice2::writeByte(quint8 byte)
 {
-    if (i2c_smbus_write_byte(mDeviceFd, byte) < 0)
+    quint8 buffer[1] = {byte};
+    return writeBytes(buffer, 1);
+}
+
+bool I2CDevice2::writeBytes(quint8 *buffer, quint8 length)
+{
+    if (buffer == Q_NULLPTR)
     {
+        qWarning() << "buffer null pointer in function " << __FUNCTION__;
+        return false;
+    }
+
+    if (write(mDeviceFd, buffer, length) != length)
+    {
+        /* write error */
         qWarning() << "Write failed";
         return false;
     }
     else
     {
-        qDebug() << "Wrote byte" <<  byte;
+        /* write successful */
+        qDebug() << "Wrote" << length << "bytes";
         return true;
     }
 }
 
-quint8 I2CDevice::readByte()
+quint8 I2CDevice2::readByte()
 {
-    qint32 byte = i2c_smbus_read_byte(mDeviceFd);
-    if (byte < 0)
+    quint8 buffer[1] = {0};
+
+    readBytes(static_cast<quint8*>(buffer), 1);
+
+    return static_cast<quint8>(buffer[0]);
+}
+
+bool I2CDevice2::readBytes(quint8 *buffer, quint8 length)
+{
+    if (buffer == Q_NULLPTR)
     {
-        qWarning() << "Write failed";
+        qWarning() << "buffer null pointer in function " << __FUNCTION__;
         return false;
     }
 
-    qDebug() << "Read byte" <<  byte;
-    return static_cast<quint8>(byte);
+    if (read(mDeviceFd, buffer, length) != length)
+    {
+        /* write error */
+        qWarning() << "Read failed";
+        return false;
+    }
+    else
+    {
+        /* write successful */
+        qDebug() << "Read" << length << "bytes";
+        return true;
+    }
 }
 
-bool I2CDevice::setSlaveAddress(bool force)
+bool I2CDevice2::setSlaveAddress(bool force)
 {
     /* With force, let the user read from/write to the registers
        even when a driver is also running */

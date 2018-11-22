@@ -3,7 +3,7 @@
 #include <QDebug>
 
 LightSensor::LightSensor()
-  : I2CDevice("Light", 4, LightSensor::I2C_ADDRESS)
+  : I2CDevice2("Light", 4, LightSensor::I2C_ADDRESS)
 {
     openDevice();
 }

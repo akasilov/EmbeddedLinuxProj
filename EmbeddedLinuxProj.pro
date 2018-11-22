@@ -17,7 +17,9 @@ SOURCES += \
     drivers/i2cdevice.cpp \
     sensors/lightsensor.cpp \
     sensors/sensorbackend.cpp \
-    sensors/accelsensor.cpp
+    sensors/accelsensor.cpp \
+    sensors/colorsensor.cpp \
+    drivers/i2cdevice2.cpp
 
 RESOURCES += gui/qml.qrc
 
@@ -36,4 +38,6 @@ HEADERS += \
     drivers/i2cdevice.h \
     sensors/lightsensor.h \
     sensors/sensorbackend.h \
-    sensors/accelsensor.h
+    sensors/accelsensor.h \
+    sensors/colorsensor.h \
+    drivers/i2cdevice2.h
