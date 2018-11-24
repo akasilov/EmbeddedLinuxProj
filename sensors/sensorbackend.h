@@ -5,6 +5,8 @@
 #include <QString>
 #include <QTimer>
 #include "sensor.h"
+#include "./drivers/gpiobutton.h"
+#include "./drivers/gpioled.h"
 
 class SensorBackEnd : public QObject
 {
@@ -14,9 +16,20 @@ class SensorBackEnd : public QObject
 
 public:
     explicit SensorBackEnd(QObject *parent = nullptr);
+    ~SensorBackEnd();
     void setSensorType(QString sensorType);
     QString getSensorType() const;
     QString getReading();
+
+    gpioButton T1;
+    gpioButton T2;
+    //gpioButton T3;
+    //gpioButton T4;
+
+public slots:
+    void buttonT1_event();
+    void buttonT2_event();
+    void updateReading();
 
 signals:
     void readingsChanged();

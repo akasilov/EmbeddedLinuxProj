@@ -19,7 +19,10 @@ SOURCES += \
     sensors/accelsensor.cpp \
     sensors/colorsensor.cpp \
     sensors/sensor.cpp \
-    drivers/i2cprotocol.cpp
+    drivers/i2cprotocol.cpp \
+    drivers/gpiobase.cpp \
+    drivers/gpiobutton.cpp \
+    drivers/gpioled.cpp
 
 RESOURCES += gui/qml.qrc
 
@@ -40,4 +43,7 @@ HEADERS += \
     sensors/accelsensor.h \
     sensors/colorsensor.h \
     sensors/sensor.h \
-    drivers/i2cprotocol.h
+    drivers/i2cprotocol.h \
+    drivers/gpiobase.h \
+    drivers/gpiobutton.h \
+    drivers/gpioled.h

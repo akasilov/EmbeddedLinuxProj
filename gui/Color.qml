@@ -6,12 +6,6 @@ Page {
     width: 800
     height: 480
 
-    SensorBackEnd
-    {
-        sensorType: "color"
-        id: colorSensor;
-    }
-
     header: Label {
         text: qsTr("Color")
         font.pixelSize: Qt.application.font.pixelSize * 2
@@ -32,7 +26,7 @@ Page {
         Text {
             x: 5
             y: 10
-            text: colorSensor.sensorReading
+            //text: colorSensor.sensorReading
             color: "grey"
         }
     }
