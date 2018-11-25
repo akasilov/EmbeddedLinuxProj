@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "backends/sensorbackend.h"
+#include "backends/accelsensorbackend.h"
 #include "backends/gpiobackend.h"
 
 int main(int argc, char *argv[])
@@ -10,6 +11,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     qmlRegisterType<SensorBackend>("backends.sensorbackend", 1, 0, "SensorBackend");
+    qmlRegisterType<AccelSensorBackend>("backends.accelsensorbackend", 1, 0, "AccelSensorBackend");
     qmlRegisterType<GpioBackend>("backends.gpiobackend", 1, 0, "GpioBackend");
 
     QQmlApplicationEngine engine;

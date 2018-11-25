@@ -85,18 +85,12 @@ void ColorSensor::setRgbcGain(quint8 value)
 
 quint8 ColorSensor::readFromRegister(quint8 reg)
 {
-    mProto->writeByte(CMD_REPEATED | reg); /* CMD: select desired register */
-    return mProto->readByte(); /* read from register */
+    return readRegister(CMD_REPEATED | reg); /* CMD: select desired register */
 }
 
 bool ColorSensor::writeToRegister(quint8 reg, quint8 value)
 {
-    bool b = mProto->writeByte(CMD_REPEATED | reg); /* CMD: desired register */
-    if (b == true)
-    {
-        b = mProto->writeByte(value); /* write to selected register */
-    }
-    return b;
+    return writeRegister(CMD_REPEATED | reg, value); /* CMD: select desired register */
 }
 
 void ColorSensor::initSensor()

@@ -22,7 +22,7 @@ public:
 signals:
     void updateReading();
 
-private:
+protected:
     QString mSensorType;
     QTimer* mUpdateTimer {nullptr};
     QScopedPointer<Sensor> mSensor;

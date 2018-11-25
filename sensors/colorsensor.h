@@ -18,14 +18,12 @@ public:
 
     virtual QString getReadingAsString() override;
 
+private:
+    rgbColorAdc getColors(void);
     void enableSensor();
     void disableSensor();
     void setIntegrationTime(quint8 value);
     void setRgbcGain(quint8 value);
-
-
-private:
-    rgbColorAdc getColors(void);
 
     void initSensor();
     quint8 readFromRegister(quint8 reg);

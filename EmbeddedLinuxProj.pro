@@ -23,7 +23,8 @@ SOURCES += \
     drivers/gpiobutton.cpp \
     drivers/gpioled.cpp \
     backends/sensorbackend.cpp \
-    backends/gpiobackend.cpp
+    backends/gpiobackend.cpp \
+    backends/accelsensorbackend.cpp
 
 RESOURCES += gui/qml.qrc
 
@@ -48,4 +49,5 @@ HEADERS += \
     drivers/gpiobutton.h \
     drivers/gpioled.h \
     backends/sensorbackend.h \
-    backends/gpiobackend.h
+    backends/gpiobackend.h \
+    backends/accelsensorbackend.h

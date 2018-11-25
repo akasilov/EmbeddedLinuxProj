@@ -2,6 +2,7 @@
 #include "sensorbackend.h"
 #include "sensors/colorsensor.h"
 #include "sensors/lightsensor.h"
+#include "sensors/accelsensor.h"
 
 SensorBackend::SensorBackend(QObject *parent) :
     QObject(parent),
@@ -27,6 +28,10 @@ void SensorBackend::setSensorType(QString sensorType)
     {
         mSensor.reset(new ColorSensor());
     }
+    else if (sensorType == "acceleration")
+    {
+        mSensor.reset(new AccelSensor());
+    }
     else
     {
         qWarning() << "Unknown sensor type";
@@ -37,7 +42,7 @@ void SensorBackend::setSensorType(QString sensorType)
 
     /* set up timer */
     connect(mUpdateTimer, SIGNAL(timeout()), this, SIGNAL(updateReading()));
-    mUpdateTimer->start(500);
+    mUpdateTimer->start(100);
 
 }
 
