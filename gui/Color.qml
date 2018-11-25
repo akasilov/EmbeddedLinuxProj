@@ -1,10 +1,15 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-import sensors.sensorbackend 1.0
+import backends.sensorbackend 1.0
 
 Page {
     width: 800
     height: 480
+
+    SensorBackend {
+        sensorType: "color"
+        id: colorSensor;
+    }
 
     header: Label {
         text: qsTr("Color")
@@ -26,7 +31,7 @@ Page {
         Text {
             x: 5
             y: 10
-            //text: colorSensor.sensorReading
+            text: colorSensor.sensorReading
             color: "grey"
         }
     }

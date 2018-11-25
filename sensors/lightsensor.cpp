@@ -29,7 +29,7 @@ double LightSensor::getLightInLux()
     exponent = (byteHigh & 0xF0) >> 4;
 
     double lux = qPow(2, exponent)*mantissa*0.045;
-    qInfo() << "Sensor readings in lux " << lux;
+    qInfo() << mSensorName << lux << "lux";
 
     return lux;
 }

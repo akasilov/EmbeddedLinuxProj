@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "sensors/sensorbackend.h"
+#include "backends/sensorbackend.h"
+#include "backends/gpiobackend.h"
 
 int main(int argc, char *argv[])
 {
@@ -8,7 +9,8 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-    qmlRegisterType<SensorBackEnd>("sensors.sensorbackend", 1, 0, "SensorBackEnd");
+    qmlRegisterType<SensorBackend>("backends.sensorbackend", 1, 0, "SensorBackend");
+    qmlRegisterType<GpioBackend>("backends.gpiobackend", 1, 0, "GpioBackend");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

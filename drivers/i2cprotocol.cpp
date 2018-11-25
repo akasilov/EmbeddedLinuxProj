@@ -71,7 +71,7 @@ bool I2CProtocol::writeBytes(quint8 *buffer, quint8 length)
     else
     {
         /* write successful */
-        qDebug() << "Wrote" << length << "bytes";
+        //qDebug() << "Wrote" << length << "bytes";
         return true;
     }
 }
@@ -102,7 +102,7 @@ bool I2CProtocol::readBytes(quint8 *buffer, quint8 length)
     else
     {
         /* write successful */
-        qDebug() << "Read" << length << "bytes";
+        //qDebug() << "Read" << length << "bytes";
         return true;
     }
 }

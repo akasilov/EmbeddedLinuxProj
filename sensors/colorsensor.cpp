@@ -4,7 +4,9 @@
 
 ColorSensor::ColorSensor()
     : Sensor("ColorSensor", new I2CProtocol(4, ColorSensor::I2C_ADDRESS))
-{}
+{
+    initSensor();
+}
 
 QString ColorSensor::getReadingAsString()
 {
@@ -46,7 +48,7 @@ rgbColorAdc ColorSensor::getColors()
         }
         if (isOk == true)
         {
-            qDebug() << "clear: " << data.Clear << " red: " << data.Red << " green: " << data.Green << " blue: " << data.Blue;
+            qDebug() << mSensorName << "clear: " << data.Clear << " red: " << data.Red << " green: " << data.Green << " blue: " << data.Blue;
         }
         else
         {
