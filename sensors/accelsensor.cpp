@@ -11,9 +11,9 @@ AccelSensor::AccelSensor()
     //qInfo() << "x gyro bias" << gyroBias[0];
     //qInfo() << "y gyro bias" << gyroBias[1];
     //qInfo() << "z gyro bias" << gyroBias[2];
-    //qInfo() << "x accel bias" << accelBias[0];
-    //qInfo() << "y accel bias" << accelBias[1];
-    //qInfo() << "z accel bias" << accelBias[2];
+    qInfo() << "x accel bias" << accelBias[0];
+    qInfo() << "y accel bias" << accelBias[1];
+    qInfo() << "z accel bias" << accelBias[2];
     QThread::sleep(2);
     initSensor();
     getAres();
@@ -27,7 +27,7 @@ QString AccelSensor::getReadingAsString()
     ay = (float)accelCount[1]*aRes - accelBias[1];
     az = (float)accelCount[2]*aRes - accelBias[2];
     qDebug() << mSensorName << "ax: " << az << " ay: " << ay << " az: " << az;
-    return QString("X: ") + QString::number(ax) + " Y: " + QString::number(ax) + " Z: " + QString::number(ax);
+    return QString("X: ") + QString::number(ax) + " Y: " + QString::number(ay) + " Z: " + QString::number(az);
 }
 
 float AccelSensor::getX()

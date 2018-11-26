@@ -20,6 +20,7 @@ QString SensorBackend::getReading()
 void SensorBackend::setSensorType(QString sensorType)
 {
     mSensorType = sensorType;
+    int timeout = 500;
     if (sensorType == "light")
     {
         mSensor.reset(new LightSensor());
@@ -30,6 +31,7 @@ void SensorBackend::setSensorType(QString sensorType)
     }
     else if (sensorType == "acceleration")
     {
+        timeout = 10;
         mSensor.reset(new AccelSensor());
     }
     else
@@ -42,7 +44,7 @@ void SensorBackend::setSensorType(QString sensorType)
 
     /* set up timer */
     connect(mUpdateTimer, SIGNAL(timeout()), this, SIGNAL(updateReading()));
-    mUpdateTimer->start(100);
+    mUpdateTimer->start(timeout);
 
 }
 

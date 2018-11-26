@@ -15,7 +15,6 @@ Page {
             var ax = accelSensor.x
             var ay = accelSensor.y
             var az = accelSensor.z
-            console.log(x)
             var newX = (bubble.x + calcRoll(ax, ay, az) * .1)
             var newY = (bubble.y - calcPitch(ax, ay, az) * .1)
 
