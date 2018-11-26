@@ -18,11 +18,21 @@ Page {
     }
 
 
-    TextArea {
-        id: luxValue
-        text: lightSensor.sensorReading
-        anchors.verticalCenterOffset: -73
-        anchors.horizontalCenterOffset: 10
-        anchors.centerIn: parent
+    Rectangle
+    {
+        x: 284
+        y: -46
+        width: 500
+        height: 40
+        color: "white"
+        border.color: "black"
+        border.width: 2
+        radius: 5
+        Text {
+            x: 5
+            y: 10
+            text: lightSensor.sensorReading
+            color: "grey"
+        }
     }
 }

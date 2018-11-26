@@ -77,8 +77,8 @@ Page {
 
     Rectangle
     {
-        x: 150
-        y: 100
+        x: 294
+        y: -46
         width: 500
         height: 40
         color: "white"
