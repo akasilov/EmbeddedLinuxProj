@@ -24,7 +24,8 @@ SOURCES += \
     drivers/gpioled.cpp \
     backends/sensorbackend.cpp \
     backends/gpiobackend.cpp \
-    backends/accelsensorbackend.cpp
+    backends/accelsensorbackend.cpp \
+    drivers/logger.cpp
 
 RESOURCES += gui/qml.qrc
 
@@ -50,4 +51,5 @@ HEADERS += \
     drivers/gpioled.h \
     backends/sensorbackend.h \
     backends/gpiobackend.h \
-    backends/accelsensorbackend.h
+    backends/accelsensorbackend.h \
+    drivers/logger.h

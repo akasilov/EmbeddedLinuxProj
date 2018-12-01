@@ -7,6 +7,7 @@ Page {
     width: 800
     height: 480
     readonly property double radians_to_degrees: 180 / Math.PI
+    property alias acc_bubble: bubble
 
     AccelSensorBackend {
         sensorType: "acceleration"
@@ -35,6 +36,11 @@ Page {
 
                 bubble.x = newX
                 bubble.y = newY
+
+            if (logger_checkBox.checked == true)
+            {
+                logger.sendString("\n" + Date.now() + "\t" + ax.toPrecision(7) + "\t" + ay.toPrecision(7) + "\t" + az.toPrecision(7))
+            }
         }
     }
     header: Label {
@@ -91,4 +97,5 @@ Page {
             color: "grey"
         }
     }
+
 }

@@ -3,6 +3,8 @@
 #include "sensors/colorsensor.h"
 #include "sensors/lightsensor.h"
 #include "sensors/accelsensor.h"
+#include "drivers/logger.h"
+
 
 SensorBackend::SensorBackend(QObject *parent) :
     QObject(parent),
@@ -45,7 +47,6 @@ void SensorBackend::setSensorType(QString sensorType)
     /* set up timer */
     connect(mUpdateTimer, SIGNAL(timeout()), this, SIGNAL(updateReading()));
     mUpdateTimer->start(timeout);
-
 }
 
 QString SensorBackend::getSensorType() const

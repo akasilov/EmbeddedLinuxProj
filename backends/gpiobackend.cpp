@@ -14,11 +14,6 @@ GpioBackend::GpioBackend(QObject *parent) :
     mL4(this, 127),
     mUpdateTimer(new QTimer(this))
 {
-    /*
-     **********************************************************
-     * Example: set up L1 .. L4 and buttons T1 .. T2     begin
-     **********************************************************
-    */
 
     //T1
     connect(&mT1, SIGNAL(onButtonPressed()), this, SIGNAL(buttonPressedT1()));
@@ -96,5 +91,25 @@ void GpioBackend::pollGpios()
     mT2.pollForInt(); //-> signal onButtonPressed -> slot buttonPressedT2()
     mT3.pollForInt(); //-> signal onButtonPressed -> slot buttonPressedT3()
     mT4.pollForInt(); //-> signal onButtonPressed -> slot buttonPressedT4()
+}
+
+void GpioBackend::setLedL1(bool isSet)
+{
+    mL1.setLed(isSet);
+}
+
+void GpioBackend::setLedL2(bool isSet)
+{
+    mL2.setLed(isSet);
+}
+
+void GpioBackend::setLedL3(bool isSet)
+{
+    mL3.setLed(isSet);
+}
+
+void GpioBackend::setLedL4(bool isSet)
+{
+    mL4.setLed(isSet);
 }
 

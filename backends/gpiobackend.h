@@ -16,6 +16,10 @@ public:
 
 public slots:
     void pollGpios();
+    void setLedL1(bool isSet);
+    void setLedL2(bool isSet);
+    void setLedL3(bool isSet);
+    void setLedL4(bool isSet);
 
 signals:
     void buttonPressedT1();
