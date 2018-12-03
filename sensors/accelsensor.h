@@ -155,19 +155,28 @@
 class AccelSensor : public Sensor
 {
 public:
-    AccelSensor();
-
-    virtual QString getReadingAsString() override;
 
     // Set initial input parameters
-    enum Ascale {
-      AFS_2G = 0,
-      AFS_4G,
-      AFS_8G,
-      AFS_16G
+    enum AccelScale {
+        AFS_2G = 0,
+        AFS_4G,
+        AFS_8G,
+        AFS_16G
     };
 
-    enum Gscale {
+    AccelSensor(AccelScale scale = AFS_2G);
+
+    virtual QString getReadingAsString() override;
+    virtual QVector<float> readDataAsFloat() override;
+
+    struct AccelData
+    {
+        float ax;
+        float ay;
+        float az;
+    };
+
+    enum mGyroScale {
       GFS_250DPS = 0,
       GFS_500DPS,
       GFS_1000DPS,
@@ -179,34 +188,26 @@ public:
       MFS_16BITS      // 0.15 mG per LSB
     };
 
-    virtual float getX() override;
-    virtual float getY() override;
-    virtual float getZ() override;
-
+    virtual void readSensorData() override;
 
 private:
-    uint8_t Ascale = AFS_2G;     // AFS_2G, AFS_4G, AFS_8G, AFS_16G
-    uint8_t Gscale = GFS_250DPS; // GFS_250DPS, GFS_500DPS, GFS_1000DPS, GFS_2000DPS
-    uint8_t Mscale = MFS_16BITS; // MFS_14BITS or MFS_16BITS, 14-bit or 16-bit magnetometer resolution
-    uint8_t Mmode = 0x06;        // Either 8 Hz 0x02) or 100 Hz (0x06) magnetometer data ODR
-    float aRes, gRes, mRes; // scale resolutions per LSB for the sensors
-
-    int16_t accelCount[3];  // Stores the 16-bit signed accelerometer sensor output
-    int16_t gyroCount[3];   // Stores the 16-bit signed gyro sensor output
-    int16_t magCount[3];    // Stores the 16-bit signed magnetometer sensor output
-    float magCalibration[3] = {0, 0, 0}, magbias[3] = {0, 0, 0};  // Factory mag calibration and mag bias
-    float gyroBias[3] = {0, 0, 0}, accelBias[3] = {0, 0, 0}; // Bias corrections for gyro and accelerometer
-    float ax, ay, az, gx, gy, gz, mx, my, mz; // variables to hold latest sensor data values
-    int16_t tempCount;   // Stores the real internal chip temperature in degrees Celsius
-    float temperature;
-    float SelfTest[6];
-
     void initSensor();
     void reset();
-    void calibrate(float * dest1, float * dest2);
+    void calibrate();
+    void readAccelData(qint16* destination);
+    void setResolution();
+
+    uint8_t mAccelScale {AFS_2G};     // AFS_2G, AFS_4G, AFS_8G, AFS_16G
+    uint8_t mGyroScale {GFS_250DPS}; // GFS_250DPS, GFS_500DPS, GFS_1000DPS, GFS_2000DPS
+    float mResolition; // scale resolutions per LSB for the sensors
+
+    float mGyroBias[3] = {0., 0., 0.};
+    float mAccelBias[3] = {0., 0., 0.}; // Bias corrections for gyro and accelerometer
+    float mAccelX;
+    float mAccelY;
+    float mAccelZ; // variables to hold latest sensor data values
 
     const static int I2C_ADDRESS = 0x68;
-    void readAccelData(int16_t * destination);
-    void getAres();
+
 };
 #endif // ACCELSENSOR_H

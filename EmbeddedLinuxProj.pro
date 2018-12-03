@@ -40,7 +40,6 @@ target.path = /home/student/qt5
 INSTALLS += target
 
 HEADERS += \
-    drivers/i2c-dev.h \
     sensors/lightsensor.h \
     sensors/accelsensor.h \
     sensors/colorsensor.h \

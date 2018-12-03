@@ -45,7 +45,7 @@ void SensorBackend::setSensorType(QString sensorType)
     emit updateReading();
 
     /* set up timer */
-    connect(mUpdateTimer, SIGNAL(timeout()), this, SIGNAL(updateReading()));
+    connect(mUpdateTimer, SIGNAL(timeout()), this, SLOT(updateReading()));
     mUpdateTimer->start(timeout);
 }
 
@@ -54,4 +54,9 @@ QString SensorBackend::getSensorType() const
     return mSensorType;
 }
 
+void SensorBackend::updateReading()
+{
+    mSensor->readSensorData();
+    emit readingsUpdated();
+}
 

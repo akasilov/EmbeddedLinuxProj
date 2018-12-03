@@ -25,21 +25,6 @@ extern "C" {
 #include "gpiobase.h"
 #include <QThread>
 
-const QString gpioBase::GPIOBASE_DIR_IN = "in";
-const QString gpioBase::GPIOBASE_DIR_OUT = "out";
-const QString gpioBase::GPIOBASE_EDGE_NONE = "none";
-const QString gpioBase::GPIOBASE_EDGE_RISING = "rising";
-const QString gpioBase::GPIOBASE_EDGE_FALLING = "falling";
-const QString gpioBase::GPIOBASE_EDGE_BOTH = "both";
-
-const QString gpioBase::SYSFS_PATH_STRING = "/sys/class/gpio/";
-const QString gpioBase::EXPORT_STRING = "export";
-const QString gpioBase::UNEXPORT_STRING = "unexport";
-const QString gpioBase::VALUE_STRING = "value";
-const QString gpioBase::EDGE_STRING = "edge";
-const QString gpioBase::DIRECTION_STRING = "direction";
-const QString gpioBase::GPIO_STRING = "gpio";
-
 gpioBase::gpioBase(quint16 PinNumber):
         pinNumber(PinNumber)
 {

@@ -9,7 +9,7 @@
 class SensorBackend : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString sensorReading READ getReading NOTIFY updateReading)
+    Q_PROPERTY(QString sensorReading READ getReading NOTIFY readingsUpdated)
     Q_PROPERTY(QString sensorType READ getSensorType WRITE setSensorType)
 
 public:
@@ -19,8 +19,10 @@ public:
     QString getSensorType() const;
     QString getReading();
 
+public slots:
+    virtual void updateReading();
 signals:
-    void updateReading();
+    void readingsUpdated();
 
 protected:
     QString mSensorType;

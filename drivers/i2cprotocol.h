@@ -13,6 +13,8 @@ public:
     bool writeBytes(quint8 *buffer, quint8 length);
     quint8 readByte();
     bool readBytes(quint8 *buffer, quint8 length);
+    quint8 readRegister(quint8 reg);
+    bool writeRegister(quint8 reg, quint8 value);
 
 protected:
     // creates connection to a sensor

@@ -10,8 +10,12 @@ ColorSensor::ColorSensor()
 
 QString ColorSensor::getReadingAsString()
 {
-    auto colors = getColors();
-    return QString::number(colors.Clear) + " Red: " + QString::number(colors.Red) + " Green: " + QString::number(colors.Green) + " Blue: " + QString::number(colors.Blue);
+    return QString::number(mColors.Clear) + " Red: " + QString::number(mColors.Red) + " Green: " + QString::number(mColors.Green) + " Blue: " + QString::number(mColors.Blue);
+}
+
+void ColorSensor::readSensorData()
+{
+    mColors = getColors();
 }
 
 /* read out color data from sensor */
@@ -85,12 +89,12 @@ void ColorSensor::setRgbcGain(quint8 value)
 
 quint8 ColorSensor::readFromRegister(quint8 reg)
 {
-    return readRegister(CMD_REPEATED | reg); /* CMD: select desired register */
+    return mProto->readRegister(CMD_REPEATED | reg); /* CMD: select desired register */
 }
 
 bool ColorSensor::writeToRegister(quint8 reg, quint8 value)
 {
-    return writeRegister(CMD_REPEATED | reg, value); /* CMD: select desired register */
+    return mProto->writeRegister(CMD_REPEATED | reg, value); /* CMD: select desired register */
 }
 
 void ColorSensor::initSensor()

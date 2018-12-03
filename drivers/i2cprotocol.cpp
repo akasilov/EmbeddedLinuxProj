@@ -122,3 +122,19 @@ bool I2CProtocol::setSlaveAddress(bool force)
     }
     return true;
 }
+
+quint8 I2CProtocol::readRegister(quint8 reg)
+{
+    writeByte(reg);
+    return readByte();
+}
+
+bool I2CProtocol::writeRegister(quint8 reg, quint8 value)
+{
+    bool b = writeByte(reg); /* CMD: desired register */
+    if (b == true)
+    {
+        b = writeByte(value); /* write to selected register */
+    }
+    return b;
+}

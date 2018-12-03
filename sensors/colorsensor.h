@@ -17,8 +17,10 @@ public:
     ColorSensor();
 
     virtual QString getReadingAsString() override;
+    virtual void readSensorData() override;
 
 private:
+    rgbColorAdc mColors;
     rgbColorAdc getColors(void);
     void enableSensor();
     void disableSensor();

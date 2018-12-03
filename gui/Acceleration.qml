@@ -12,7 +12,7 @@ Page {
     AccelSensorBackend {
         sensorType: "acceleration"
         id: accelSensor;
-        onUpdateReading: {
+        onReadingsUpdated: {
             var ax = accelSensor.x
             var ay = accelSensor.y
             var az = accelSensor.z

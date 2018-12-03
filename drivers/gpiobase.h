@@ -17,12 +17,12 @@ public:
     bool setValue(quint8 Value); /* set pin value */
     quint16 getPinNumber(); /* get pin number of current object */
 
-    const static QString GPIOBASE_DIR_IN;
-    const static QString GPIOBASE_DIR_OUT;
-    const static QString GPIOBASE_EDGE_NONE;
-    const static QString GPIOBASE_EDGE_RISING;
-    const static QString GPIOBASE_EDGE_FALLING;
-    const static QString GPIOBASE_EDGE_BOTH;
+    const QString GPIOBASE_DIR_IN {"in"};
+    const QString GPIOBASE_DIR_OUT {"out"};
+    const QString GPIOBASE_EDGE_NONE {"none"};
+    const QString GPIOBASE_EDGE_RISING {"rising"};
+    const QString GPIOBASE_EDGE_FALLING {"falling"};
+    const QString GPIOBASE_EDGE_BOTH {"both"};
 
 protected:
     bool writeToSysFs(QString FilePath, QString WriteString);
@@ -31,13 +31,13 @@ protected:
 
     quint16 pinNumber; //GPIO pin number
 
-    const static QString SYSFS_PATH_STRING;
-    const static QString EXPORT_STRING;
-    const static QString UNEXPORT_STRING;
-    const static QString VALUE_STRING;
-    const static QString EDGE_STRING;
-    const static QString DIRECTION_STRING;
-    const static QString GPIO_STRING;
+    const QString SYSFS_PATH_STRING {"/sys/class/gpio/"};
+    const QString EXPORT_STRING {"export"};
+    const QString UNEXPORT_STRING {"unexport"};
+    const QString VALUE_STRING {"value"};
+    const QString EDGE_STRING {"edge"};
+    const QString DIRECTION_STRING {"direction"};
+    const QString GPIO_STRING {"gpio"};
 };
 
 #endif // GPIOBASE_H

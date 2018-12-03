@@ -10,10 +10,15 @@ LightSensor::LightSensor()
 
 QString LightSensor::getReadingAsString()
 {
-    return QString::number(getLightInLux());
+    return QString::number(mLightInLux);
 }
 
-double LightSensor::getLightInLux()
+void LightSensor::readSensorData()
+{
+    mLightInLux = getLightInLux();
+}
+
+float LightSensor::getLightInLux()
 {
     quint8 mantissa = 0;
     quint8 exponent = 0;
@@ -28,7 +33,7 @@ double LightSensor::getLightInLux()
     mantissa |= (0x0F & byteHigh) << 4;
     exponent = (byteHigh & 0xF0) >> 4;
 
-    double lux = qPow(2, exponent)*mantissa*0.045;
+    float lux = qPow(2, exponent)*mantissa*0.045;
     qInfo() << mSensorName << lux << "lux";
 
     return lux;

@@ -9,9 +9,12 @@ public:
     LightSensor();
 
     virtual QString getReadingAsString() override;
+    virtual void readSensorData() override;
 
 private:
-    double getLightInLux();
+    float getLightInLux();
+
+    float mLightInLux {0.};
 
     const static int LUX_LOW_BYTE_REG = 0x04;
     const static int LUX_HIGH_BYTE_REG = 0x03;
