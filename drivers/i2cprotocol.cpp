@@ -118,7 +118,7 @@ bool I2CProtocol::setSlaveAddress(bool force)
     }
     else
     {
-        qInfo() << "Slave address set to" <<  QString::number(mSlaveAddress, 16);
+        qDebug() << "Slave address set to" <<  QString::number(mSlaveAddress, 16);
     }
     return true;
 }

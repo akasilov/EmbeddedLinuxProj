@@ -34,7 +34,7 @@ float LightSensor::getLightInLux()
     exponent = (byteHigh & 0xF0) >> 4;
 
     float lux = qPow(2, exponent)*mantissa*0.045;
-    qInfo() << mSensorName << lux << "lux";
+    qDebug() << mSensorName << lux << "lux";
 
     return lux;
 }

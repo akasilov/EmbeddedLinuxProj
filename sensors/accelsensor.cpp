@@ -11,9 +11,9 @@ AccelSensor::AccelSensor(AccelScale scale)
     reset(); // Reset registers to default in preparation for device calibration
 
     calibrate(); // Calibrate gyro and accelerometers, load biases in bias registers
-    qInfo() << "x accel bias" << mAccelBias[0];
-    qInfo() << "y accel bias" << mAccelBias[1];
-    qInfo() << "z accel bias" << mAccelBias[2];
+    qDebug() << "x accel bias" << mAccelBias[0];
+    qDebug() << "y accel bias" << mAccelBias[1];
+    qDebug() << "z accel bias" << mAccelBias[2];
     QThread::sleep(2);
     initSensor();
 }
@@ -268,7 +268,6 @@ void AccelSensor::setResolution() {
         mResolition = 16.0/32768.0;
         break;
     }
-    qInfo() << "Accelerometer sensitivity is" << 1.0f/mResolition <<  "LSB/g";
 }
 
 void AccelSensor::readAccelData(qint16 * destination)
