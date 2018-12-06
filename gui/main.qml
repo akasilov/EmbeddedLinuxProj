@@ -10,7 +10,6 @@ ApplicationWindow {
     height: 480
     title: qsTr("Tabs")
 
-
     GpioBackend {
         id: gpio
         onButtonPressedT1:
@@ -54,6 +53,7 @@ ApplicationWindow {
 
         }
     }
+
     SwipeView {
         id: swipeView
         anchors.fill: parent
@@ -61,7 +61,6 @@ ApplicationWindow {
 
         Light {
             id: light
-
         }
 
         Acceleration {

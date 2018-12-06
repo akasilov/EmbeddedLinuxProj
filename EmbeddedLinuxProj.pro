@@ -53,3 +53,5 @@ HEADERS += \
     backends/gpiobackend.h \
     backends/accelsensorbackend.h \
     drivers/logger.h
+
+DISTFILES +=

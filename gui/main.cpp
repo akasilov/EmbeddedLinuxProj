@@ -10,7 +10,6 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
-
     qmlRegisterType<SensorBackend>("backends.sensorbackend", 1, 0, "SensorBackend");
     qmlRegisterType<AccelSensorBackend>("backends.accelsensorbackend", 1, 0, "AccelSensorBackend");
     qmlRegisterType<GpioBackend>("backends.gpiobackend", 1, 0, "GpioBackend");

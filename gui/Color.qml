@@ -17,7 +17,6 @@ Page {
         padding: 10
     }
 
-
     Rectangle
     {
         x: 284
@@ -35,4 +34,5 @@ Page {
             color: "grey"
         }
     }
+
 }
