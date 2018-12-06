@@ -22,7 +22,7 @@ gpioLed::gpioLed(QObject *parent, quint16 PinNumber)
 
 gpioLed::~gpioLed()
 {
-
+    exportGpio(false);
 }
 
 bool gpioLed::getLed()

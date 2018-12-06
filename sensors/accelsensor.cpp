@@ -23,9 +23,9 @@ QString AccelSensor::getReadingAsString()
     return QString("X: ") + QString::number(mAccelX) + " Y: " + QString::number(mAccelY) + " Z: " + QString::number(mAccelZ);
 }
 
-QVector<float> AccelSensor::readDataAsFloat()
+QVariantList AccelSensor::getSensorData()
 {
-    return QVector<float> {mAccelX, mAccelY, mAccelZ};
+    return QVariantList {mAccelX, mAccelY, mAccelZ};
 }
 
 void AccelSensor::readSensorData()
@@ -81,15 +81,6 @@ void AccelSensor::initSensor()
      c = c & ~0x0F; // Clear accel_fchoice_b (bit 3) and A_DLPFG (bits [2:0])
      c = c | 0x03;  // Set accelerometer rate to 1 kHz and bandwidth to 41 Hz
      mProto->writeRegister(ACCEL_CONFIG2, c); // Write new ACCEL_CONFIG2 register value
-
-    // The accelerometer, gyro, and thermometer are set to 1 kHz sample rates,
-    // but all these rates are further reduced by a factor of 5 to 200 Hz because of the SMPLRT_DIV setting
-
-     // Configure Interrupts and Bypass Enable
-     // Set interrupt pin active high, push-pull, and clear on read of INT_STATUS, enable I2C_BYPASS_EN so additional chips
-     // can join the I2C bus and all can be controlled by the Arduino as master
-     //mProto->writeRegister(INT_PIN_CFG, 0x22);
-     //mProto->writeRegister(INT_ENABLE, 0x01); // Enable data ready (bit 0) interrupt
 }
 
 void AccelSensor::reset()
@@ -182,14 +173,6 @@ void AccelSensor::calibrate()
     data[4] = (-gyro_bias[2]/4  >> 8) & 0xFF;
     data[5] = (-gyro_bias[2]/4)       & 0xFF;
 
-    /// Push gyro biases to hardware registers
-    /*  mProto->writeRegister(XG_OFFSET_H, data[0]);
-     mProto->writeRegister(XG_OFFSET_L, data[1]);
-     mProto->writeRegister(YG_OFFSET_H, data[2]);
-     mProto->writeRegister(YG_OFFSET_L, data[3]);
-     mProto->writeRegister(ZG_OFFSET_H, data[4]);
-     mProto->writeRegister(ZG_OFFSET_L, data[5]);
-   */
     mGyroBias[0] = (float) gyro_bias[0]/(float) gyrosensitivity; // construct gyro bias in deg/s for later manual subtraction
     mGyroBias[1] = (float) gyro_bias[1]/(float) gyrosensitivity;
     mGyroBias[2] = (float) gyro_bias[2]/(float) gyrosensitivity;
@@ -233,16 +216,6 @@ void AccelSensor::calibrate()
     data[5] = (accel_bias_reg[2])      & 0xFF;
     data[5] = data[5] | mask_bit[2]; // preserve temperature compensation bit when writing back to accelerometer bias registers
 
-    // Apparently this is not working for the acceleration biases in the MPU-9250
-    // Are we handling the temperature correction bit properly?
-    // Push accelerometer biases to hardware registers
-    /*  mProto->writeRegister(XA_OFFSET_H, data[0]);
-     mProto->writeRegister(XA_OFFSET_L, data[1]);
-     mProto->writeRegister(YA_OFFSET_H, data[2]);
-     mProto->writeRegister(YA_OFFSET_L, data[3]);
-     mProto->writeRegister(ZA_OFFSET_H, data[4]);
-     mProto->writeRegister(ZA_OFFSET_L, data[5]);
-   */
     // Output scaled accelerometer biases for manual subtraction in the main program
     mAccelBias[0] = static_cast<float>(accel_bias[0])/static_cast<float>(accelsensitivity);
     mAccelBias[1] = static_cast<float>(accel_bias[1])/static_cast<float>(accelsensitivity);

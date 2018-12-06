@@ -19,6 +19,11 @@ QString SensorBackend::getReading()
     return mSensor->getReadingAsString();
 }
 
+QVariantList SensorBackend::getSensorData()
+{
+    return mSensor->getSensorData();
+}
+
 void SensorBackend::setSensorType(QString sensorType)
 {
     mSensorType = sensorType;

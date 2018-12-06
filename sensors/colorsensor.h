@@ -18,6 +18,7 @@ public:
 
     virtual QString getReadingAsString() override;
     virtual void readSensorData() override;
+    virtual QVariantList getSensorData() override;
 
 private:
     rgbColorAdc mColors;

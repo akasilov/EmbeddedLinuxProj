@@ -18,6 +18,10 @@ void ColorSensor::readSensorData()
     mColors = getColors();
 }
 
+QVariantList ColorSensor::getSensorData() {
+    return QVariantList {mColors.Clear, mColors.Red, mColors.Green, mColors.Blue};
+}
+
 /* read out color data from sensor */
 rgbColorAdc ColorSensor::getColors()
 {
@@ -60,10 +64,6 @@ rgbColorAdc ColorSensor::getColors()
 
         }
     }
-    //else
-    {
-        //qDebug() << "data has null pointer";
-    }
     return data;
 }
 
@@ -102,11 +102,5 @@ void ColorSensor::initSensor()
     enableSensor();
     setIntegrationTime(0x01);
     setRgbcGain(0x02);
-
-/*
-    qDebug() << "Enable: " << readFromRegister(ENABLE_REG);
-    qDebug() << "Int. time: " << readFromRegister(ATIME_REG);
-    qDebug() << "Ctrl: " << readFromRegister(CONTROL_REG);
-*/
 }
 

@@ -59,13 +59,13 @@ ApplicationWindow {
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
 
+        Acceleration {
+            id: acceleration
+        }
+
         Light {
             id: light
 
-        }
-
-        Acceleration {
-            id: acceleration
         }
 
         Color {
@@ -78,11 +78,11 @@ ApplicationWindow {
         currentIndex: swipeView.currentIndex
 
         TabButton {
-            text: qsTr("Light")
+            text: qsTr("Acceleration")
         }
 
         TabButton {
-            text: qsTr("Acceleration")
+            text: qsTr("Light")
         }
         TabButton {
             text: qsTr("Color")
