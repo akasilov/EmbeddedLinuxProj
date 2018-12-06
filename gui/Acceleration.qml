@@ -1,6 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import backends.sensorbackend 1.0
+import QtGraphicalEffects 1.0
 
 Page {
     id: page
@@ -40,7 +41,7 @@ Page {
 
             if (logger_checkBox.checked == true)
             {
-                logger.sendString("\n" + Date.now() + "\t" + ax.toPrecision(7) + "\t" + ay.toPrecision(7) + "\t" + az.toPrecision(7))
+                logger.sendString(Date.now() + "\t" + ax.toPrecision(7) + "\t" + ay.toPrecision(7) + "\t" + az.toPrecision(7) + "\r\n")
             }
         }
     }
@@ -61,6 +62,7 @@ Page {
         id: bubble
         source: "content/Bluebubble.svg"
         smooth: true
+        visible: true
         property real centerX: page.width / 2
         property real centerY: page.height / 2
         property real bubbleCenter: bubble.width / 2
@@ -80,7 +82,15 @@ Page {
             }
         }
     }
-
+/*
+    Colorize {
+        anchors.fill: bubble
+        source: bubble
+        hue: 0.0
+        saturation: 0.5
+        lightness: -0.2
+    }
+*/
     Rectangle
     {
         x: 294

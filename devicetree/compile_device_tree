@@ -1,0 +1,48 @@
+
+06.12.2018
+
+build new device tree:
+
+@host
+-----
+
+change dir:
+	cd ~/EmbeddedLinux/firefly_bsp/kernel/arch/arm64/boot/dts/rockchip
+
+save old dts file:
+	cp rk3399-firefly-linux.dts rk3399-firefly-linux.dts.old
+
+edit dts file as desired:
+	rk3399-firefly-linux.dts
+
+change dir:
+	cd ~/EmbeddedLinux/firefly_bsp
+
+compile kernel + device tree:
+	build/mk-kernel.sh rk3399-firefly
+
+copy new dtb to target:
+	cp out/kernel/rk3399-firefly-linux.dtb /opt/embedded/firefly/rootfs/usr/local/bin/
+
+
+@target
+-------
+
+change dir:
+	cd /usr/local/bin
+
+change rights:
+	sudo chmod +x rk3399-firefly-linux.dtb
+
+mount u-boot partition:
+	sudo mount /dev/mmcblk1p4 /mnt/
+
+deploy dtb:
+	sudo cp /usr/local/bin/rk3399-firefly-linux.dtb /mnt/
+
+unmount:
+	sudo umount /mnt
+
+reboot target:
+	sudo reboot
+
