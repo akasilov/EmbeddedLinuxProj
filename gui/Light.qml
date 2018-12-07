@@ -16,15 +16,12 @@ Page {
             name: "Light in lux"
 
             axisX: ValueAxis {
-                //format: "hh mm ss.zzz"
-                tickCount:5
-                min: 0
-                max: 5
+                tickCount: 5
 
             }
             axisY: ValueAxis {
                 min: 0
-                max: 100
+                max: 1
             }
         }
     }
@@ -32,22 +29,23 @@ Page {
     SensorBackend {
         sensorType: "light"
         id: lightSensor
-        property int i: 0
-        property int amountOfData: 0
+        property date startTime: new Date()
         onReadingsUpdated: {
-            var lightInLux = lightSensor.sensorData
-            var currentDate = new Date
+            var lightInLux = lightSensor.sensorData[0]
 
-            if(amountOfData > series1.axisX.max){
-                series1.axisX.min++;
-                series1.axisX.max++;
-            } else {
-                amountOfData++; //This else is just to stop incrementing the variable unnecessarily
+            var msecs = toMsecsSinceEpoch(new Date()) - toMsecsSinceEpoch(startTime)
+            msecs = msecs/1000
+            series1.axisX.max = msecs + 5
+            if (lightInLux > series1.axisY.max) {
+                series1.axisY.max = lightInLux + 10
             }
-
-            series1.append(i, lightInLux)
-            i=i+1
+            series1.append(msecs, lightInLux)
         }
+    }
+
+    function toMsecsSinceEpoch(date) {
+        var msecs = date.getTime();
+        return msecs;
     }
 
     header: Label {

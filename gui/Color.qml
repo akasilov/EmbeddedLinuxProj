@@ -11,6 +11,15 @@ Page {
     //property var colorPage_onColorChanged: onColorChanged
     //signal onColorChanged(variant rgba_color)
 
+    Rectangle {
+        id: rectangle
+        x: 234
+        y: 84
+        width: 333
+        height: 236
+        color: "#822b2b"
+    }
+
     SensorBackend {
         sensorType: "color"
         id: colorSensor
@@ -86,7 +95,6 @@ Page {
         Text {
             x: 5
             y: 10
-
             text: colorSensor.sensorReading
             color: "grey"
         }
