@@ -6,9 +6,25 @@ Page {
     width: 800
     height: 480
 
+    Rectangle {
+        id: rectangle
+        x: 234
+        y: 84
+        width: 333
+        height: 236
+        color: "#822b2b"
+    }
+
     SensorBackend {
         sensorType: "color"
-        id: colorSensor;
+        id: colorSensor
+        onReadingsUpdated: {
+            var sensorData = colorSensor.sensorData
+            var red = sensorData[1]/32767.
+            var green = sensorData[2]/32767.
+            var blue = sensorData[3]/32767.
+            rectangle.color = Qt.rgba(red, green, blue, 1)
+        }
     }
 
     header: Label {
@@ -34,5 +50,4 @@ Page {
             color: "grey"
         }
     }
-
 }
