@@ -1,6 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-import backends.accelsensorbackend 1.0
+import backends.sensorbackend 1.0
 import QtGraphicalEffects 1.0
 
 Page {
@@ -10,13 +10,14 @@ Page {
     readonly property double radians_to_degrees: 180 / Math.PI
     property alias acc_bubble: bubble
 
-    AccelSensorBackend {
+    SensorBackend {
         sensorType: "acceleration"
-        id: accelSensor;
+        id: accelSensor
         onReadingsUpdated: {
-            var ax = accelSensor.x
-            var ay = accelSensor.y
-            var az = accelSensor.z
+            var sensorData = accelSensor.sensorData
+            var ax = sensorData[0]
+            var ay = sensorData[1]
+            var az = sensorData[2]
             var newX = (bubble.x + calcRoll(ax, ay, az) * .1)
             var newY = (bubble.y - calcPitch(ax, ay, az) * .1)
 

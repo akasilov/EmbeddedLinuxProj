@@ -3,7 +3,7 @@
 
 #include <QScopedPointer>
 #include <QScopedPointer>
-#include <QVector>
+#include <QVariantList>
 #include "drivers/i2cprotocol.h"
 
 class Sensor
@@ -14,9 +14,7 @@ public:
 
     virtual QString getReadingAsString() = 0;
     virtual void readSensorData() = 0;
-
-    virtual QVector<float> readDataAsFloat() { return QVector<float>();}
-    virtual QVector<qint32> readDataAsInt() { return QVector<qint32>();}
+    virtual QVariantList getSensorData() = 0;
 
 protected:
     QString mSensorName;

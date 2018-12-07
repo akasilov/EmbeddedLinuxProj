@@ -40,6 +40,10 @@ void ColorSensor::readSensorData()
     }
 }
 
+QVariantList ColorSensor::getSensorData() {
+    return QVariantList {mColors.Clear, mColors.Red, mColors.Green, mColors.Blue};
+}
+
 /* read out color data from sensor */
 rgbColor ColorSensor::getColors()
 {

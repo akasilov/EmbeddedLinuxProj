@@ -18,6 +18,10 @@ void LightSensor::readSensorData()
     mLightInLux = getLightInLux();
 }
 
+QVariantList LightSensor::getSensorData() {
+    return QVariantList {mLightInLux};
+}
+
 float LightSensor::getLightInLux()
 {
     quint8 mantissa = 0;
