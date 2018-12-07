@@ -73,6 +73,7 @@ GpioBackend::GpioBackend(QObject *parent) :
      * Example: set up L1 .. L4 and buttons T1 .. T2       end
      **********************************************************
     */
+    connect(mUpdateTimer, SIGNAL(timeout()), this, SIGNAL(updateTimerExpired()));
     connect(mUpdateTimer, SIGNAL(timeout()), this, SLOT(pollGpios()));
     mUpdateTimer->start(200);
 }

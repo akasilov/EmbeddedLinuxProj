@@ -17,7 +17,7 @@ ApplicationWindow {
             /* swipe to left */
             if (swipeView.currentIndex > 0)
             {
-                swipeView.currentIndex -= 1;
+                swipeView.currentIndex -= 1
             }
         }
         onButtonPressedT2:
@@ -25,32 +25,35 @@ ApplicationWindow {
             /* swipe to right */
             if (swipeView.currentIndex < 2)
             {
-                swipeView.currentIndex += 1;
+                swipeView.currentIndex += 1
             }
         }
         onButtonPressedT3:
-        {
-            /* center bubble */
-            acceleration.acc_bubble.x = 350
-            acceleration.acc_bubble.y = 190
-
-        }
-        onButtonPressedT4:
         {
             /* toggle logging on button pressed */
             if (logger_checkBox.checked)
             {
                 /* switch off */
-                logger_checkBox.checked = false;
-                gpio.setLedL4(false);
+                logger_checkBox.checked = false
+                gpio.setLedL4(false)
             }
             else
             {
                 /* switch on */
-                logger_checkBox.checked = true;
-                gpio.setLedL4(true);
+                logger_checkBox.checked = true
+                gpio.setLedL4(true)
             }
+        }
+        onButtonPressedT4:
+        {
+            /* quit application */
+            Qt.quit()
+        }
 
+        onUpdateTimerExpired:
+        {
+            /* set bubble color depending on current color sensor measurement */
+            acceleration.acc_bubble.color = colorpage.colorPage_bubbleColor
         }
     }
 
@@ -83,6 +86,7 @@ ApplicationWindow {
         TabButton {
             text: qsTr("Light")
         }
+
         TabButton {
             text: qsTr("Color")
         }

@@ -10,7 +10,7 @@ ColorSensor::ColorSensor()
 
 QString ColorSensor::getReadingAsString()
 {
-    return "Clear: " + QString::number(mColors.Clear, 'g', 6) + " Red: " + QString::number(mColors.Red) + " Green: " + QString::number(mColors.Green) + " Blue: " + QString::number(mColors.Blue);
+    return "Clear: " + QString::number(mColors.Clear, 'g', 3) + " Red: " + QString::number(mColors.Red, 'g', 3) + " Green: " + QString::number(mColors.Green, 'g', 3) + " Blue: " + QString::number(mColors.Blue, 'g', 3);
 }
 
 void ColorSensor::readSensorData()
@@ -26,7 +26,7 @@ void ColorSensor::readSensorData()
         {
             currentIntegrationTime -= delta;
             setIntegrationTime(currentIntegrationTime);
-            qWarning() << "setIntegrationTime:" << currentIntegrationTime;
+            //qWarning() << "setIntegrationTime:" << currentIntegrationTime;
         }
     }
     else if (mColors.Clear > 0.9)
@@ -35,13 +35,13 @@ void ColorSensor::readSensorData()
         {
             currentIntegrationTime += delta;
             setIntegrationTime(currentIntegrationTime);
-            qWarning() << "setIntegrationTime:" << currentIntegrationTime;
+            //qWarning() << "setIntegrationTime:" << currentIntegrationTime;
         }
     }
 }
 
 QVariantList ColorSensor::getSensorData() {
-    return QVariantList {mColors.Clear, mColors.Red, mColors.Green, mColors.Blue};
+    return QVariantList {mColors.Clear, mColors.Red, mColors.Green, mColors.Blue, currentIntegrationTime};
 }
 
 /* read out color data from sensor */

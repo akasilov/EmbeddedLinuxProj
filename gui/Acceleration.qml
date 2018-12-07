@@ -1,7 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import backends.sensorbackend 1.0
-import QtGraphicalEffects 1.0
+//import QtGraphicalEffects 1.0
 
 Page {
     id: page
@@ -58,11 +58,12 @@ Page {
         return -Math.atan2(x, Math.sqrt(y * y + z * z)) * page.radians_to_degrees;
     }
 
+/*
     Image {
         id: bubble
         source: "content/Bluebubble.svg"
         smooth: true
-        visible: true
+        visible: false
         property real centerX: page.width / 2
         property real centerY: page.height / 2
         property real bubbleCenter: bubble.width / 2
@@ -82,6 +83,44 @@ Page {
             }
         }
     }
+*/
+
+    Rectangle {
+        id: bubble
+        width: 80
+        height: 80
+        radius: width/2
+        color: "blue"
+        smooth: true
+        visible: true
+        property real centerX: page.width / 2
+        property real centerY: page.height / 2
+        property real bubbleCenter: bubble.width / 2
+        x: centerX - bubbleCenter
+        y: centerY - bubbleCenter
+        Behavior on y {
+            SmoothedAnimation {
+                easing.type: Easing.Linear
+                duration: 100
+            }
+        }
+        Behavior on x {
+            SmoothedAnimation {
+                easing.type: Easing.Linear
+                duration: 100
+            }
+        }
+    }
+
+/*
+    HueSaturation {
+        anchors.fill: bubble
+        source: bubble
+        hue: -0.3
+        saturation: 0.5
+        lightness: -0.1
+    }
+*/
 /*
     Colorize {
         anchors.fill: bubble
@@ -91,6 +130,7 @@ Page {
         lightness: -0.2
     }
 */
+
     Rectangle
     {
         x: 294

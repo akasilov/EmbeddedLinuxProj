@@ -26,6 +26,7 @@ signals:
     void buttonPressedT2();
     void buttonPressedT3();
     void buttonPressedT4();
+    void updateTimerExpired();
 
 private:
     gpioButton mT1;
