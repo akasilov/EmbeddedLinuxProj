@@ -3,12 +3,12 @@
 
 #include "sensor.h"
 
-struct rgbColorAdc
+struct rgbColor
 {
-    quint16 Clear;
-    quint16 Red;
-    quint16 Green;
-    quint16 Blue;
+    double Clear;
+    double Red;
+    double Green;
+    double Blue;
 };
 
 class ColorSensor : public Sensor
@@ -20,8 +20,8 @@ public:
     virtual void readSensorData() override;
 
 private:
-    rgbColorAdc mColors;
-    rgbColorAdc getColors(void);
+    rgbColor mColors;
+    rgbColor getColors(void);
     void enableSensor();
     void disableSensor();
     void setIntegrationTime(quint8 value);
@@ -30,6 +30,11 @@ private:
     void initSensor();
     quint8 readFromRegister(quint8 reg);
     bool writeToRegister(quint8 reg, quint8 value);
+
+    uint8_t currentRgbGain;
+    uint8_t currentIntegrationTime;
+
+    const static int ADC_MAXVALUE  = 65535;
 
     const static int CMD_REPEATED  = 0x80;
     const static int CMD_INCREMENT  = 0xA0;
@@ -58,6 +63,10 @@ private:
     const static int BDATAH_REG  = 0x1B;
 
     const static int I2C_ADDRESS = 0x29;
+    const static int I2C_BUS_ID = 4;
+
+    const static quint8 DEFAULT_INTEGRATION_TIME = 0x01; //0x00 -> 2.4ms; 0xFF -> 700ms
+    const static quint8 DEFAULT_RGB_GAIN = 0x02; //0x00 -> 1x; 0x01 -> 4x; 0x02 -> 16x; 0x03 -> 60x
 };
 
 #endif // COLORSENSOR_H

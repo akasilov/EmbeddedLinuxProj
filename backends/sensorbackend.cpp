@@ -25,10 +25,12 @@ void SensorBackend::setSensorType(QString sensorType)
     int timeout = 500;
     if (sensorType == "light")
     {
+        timeout = 500;
         mSensor.reset(new LightSensor());
     }
     else if (sensorType == "color")
     {
+        timeout = 200;
         mSensor.reset(new ColorSensor());
     }
     else if (sensorType == "acceleration")
