@@ -11,15 +11,6 @@ Page {
     //property var colorPage_onColorChanged: onColorChanged
     //signal onColorChanged(variant rgba_color)
 
-    Rectangle {
-        id: rectangle
-        x: 234
-        y: 84
-        width: 333
-        height: 236
-        color: "#822b2b"
-    }
-
     SensorBackend {
         sensorType: "color"
         id: colorSensor
@@ -74,10 +65,10 @@ Page {
     Rectangle
     {
         id: color_circle
-        x: 247
-        y: 165
-        width: 99
-        height: 99
+        x: 239
+        y: 86
+        width: 310
+        height: 178
         color: Qt.hsla(0, 0.5, 0.5, 1)
         radius: 5
     }
