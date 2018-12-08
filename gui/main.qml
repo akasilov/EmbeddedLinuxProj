@@ -47,6 +47,7 @@ ApplicationWindow {
         onButtonPressedT4:
         {
             /* quit application */
+            //applicationClosed_rectangle.visible = true
             Qt.quit()
         }
 
@@ -59,6 +60,7 @@ ApplicationWindow {
 
     SwipeView {
         id: swipeView
+        visible: true
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
 
@@ -104,4 +106,29 @@ ApplicationWindow {
         visible: false
     }
 
+    /*
+    Rectangle {
+        id: applicationClosed_rectangle
+        x: 44
+        y: 133
+        width: 718
+        height: 53
+        color: "#444444"
+        radius: 10
+        z: 2
+        anchors.horizontalCenter: parent.horizontalCenter
+        border.color: "#646464"
+        visible: false
+        Text
+        {
+            color: "#d2bfbf"
+            text: "Application closed"
+            visible: parent.visible
+            font.pointSize: 26
+            horizontalAlignment: Text.AlignHCenter
+            anchors.fill: parent
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+*/
 }

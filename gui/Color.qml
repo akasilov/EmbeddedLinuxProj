@@ -18,13 +18,13 @@ Page {
 
         onReadingsUpdated: {
             var data = colorSensor.sensorData
-            var red = data[1] * 1
-            var green = data[2] * 1.33
-            var blue = data[3] * 1.57
+            var red = data[1]
+            var green = data[2]
+            var blue = data[3]
             var maxc = 0;
 
             /* color sensitivity compensation (-> datasheet) */
-            red *= 1
+            red *= 0.9
             green *= 1.33
             blue *= 1.57
 
@@ -100,7 +100,7 @@ Page {
 
     Rectangle {
         id: rectangle_red
-        x: 119
+        x: 125
         y: 165
         width: 70
         height: 29
@@ -110,7 +110,7 @@ Page {
         Text
         {
             id: rrtext
-            x: 5
+            x: 10
             y: 5
             color: "grey"
         }
@@ -125,7 +125,7 @@ Page {
 
     Rectangle {
         id: rectangle_green
-        x: 119
+        x: 125
         y: 200
         width: 70
         height: 29
@@ -135,7 +135,7 @@ Page {
         Text
         {
             id: rgtext
-            x: 5
+            x: 10
             y: 5
             color: "grey"
         }
@@ -150,7 +150,7 @@ Page {
 
     Rectangle {
         id: rectangle_blue
-        x: 119
+        x: 125
         y: 235
         width: 70
         height: 29
@@ -160,7 +160,7 @@ Page {
         Text
         {
             id: rbtext
-            x: 5
+            x: 10
             y: 5
             color: "grey"
         }
@@ -175,7 +175,7 @@ Page {
 
     Rectangle {
         id: rectangle_integrationTime
-        x: 119
+        x: 125
         y: 86
         width: 70
         height: 29
@@ -183,7 +183,7 @@ Page {
         radius: 0
         Text {
             id: tinttext
-            x: 5
+            x: 10
             y: 5
             color: "#808080"
         }
