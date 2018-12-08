@@ -30,16 +30,22 @@ Page {
         sensorType: "light"
         id: lightSensor
         property date startTime: new Date()
+        property int nofData: 0
         onReadingsUpdated: {
             var lightInLux = lightSensor.sensorData[0]
 
             var msecs = toMsecsSinceEpoch(new Date()) - toMsecsSinceEpoch(startTime)
             msecs = msecs/1000
-            series1.axisX.max = msecs + 5
             if (lightInLux > series1.axisY.max) {
                 series1.axisY.max = lightInLux + 10
             }
             series1.append(msecs, lightInLux)
+            nofData++
+            if (nofData > 100) {
+                series1.remove(0)
+                series1.axisX.min = series1.at(0).x
+            }
+            series1.axisX.max = msecs + 1
         }
     }
 
