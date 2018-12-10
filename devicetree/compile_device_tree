@@ -1,6 +1,11 @@
 
 06.12.2018
 
+
+files:
+	rk3399-firefly-linux.dtb.orig (original DTB with spi1 support instead if uart4)
+	rk3399-firefly-linux.dtb (new DTB with uart4 support -> UEXT-Connector)
+	
 build new device tree:
 
 @host
