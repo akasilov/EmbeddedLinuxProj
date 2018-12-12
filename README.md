@@ -70,13 +70,34 @@ Messen einer Farbe
 Mit dem Farbsensor wird periodisch der aktuelle Farbwert unter dem BFH-FireFly-Cape gemessen. Die auf dem Display angezeigten Farbwerte "Clear: xxx Red: xxx, .." sind ADC-Werte relativ zum maximal möglichen ADC-Wert (Anzeige = ADC_meas/ADC_max). Die klein geschriebenen Farbwerte (red, green, ..) sind normiert zum Farbwert mit der höchsten Intensität (ein RGB-Farbwert ist immer = 1).
 Um die Dynamik zu vergrössern wird die Integrationszeit ("Belichtungszeit") des Sensors verändert, wenn der ADC-Messwert des Kanals "Clear" (über alle Farben) über 90% bzw. unter 10% gegenüber dem maximal möglichen ADC-Wert liegt.
 
+"Loggen" der Beschleunigungswerte über die Serielle Schnittstelle
+-----------------------------------------------------------------
+Mit dem Betätigen des Tasters T3 können die mit dem Beschleunigungssensor gemessenen, linearen Komponenten (x,y,z) über die Serielle Schnittstelle des UEXT-Anschlusses gesendet werden. Wenn diese Funktion mit dem Taster aktiviert wurde leuchtet die Led L4 auf. Bei erneutem Betätigen des Tasters wird das Senden der Daten wieder angehalten und die Led erlischt.
+
+Es werden insgesamt 4 Werte gesendet:
+1. Timestamp (Epoch Date: Anzahl Millisekunden seit dem 1.1.1970)
+2. x-Komponente (lineare Beschl.) in g
+3. y-Komponente (lineare Beschl.) in g
+4. z-Komponente (lineare Beschl.) in g
+
+Die Werte werden mit einem Tabulator "\t" voneinander getrennt, eine Zeile wird mit einem *CR* *LF* bzw. "\r\n" beendet.
+
+Pinbelegung UEXT-Anschluss
+- FireFly_TX: Pin 3
+- FireFly_GND: Pin 2
+
+Baudrate, usw: siehe unten (Installation und Konfiguration)
+
 Installation und Konfiguration
 ==============================
 
-Kopieren der Applikation in ein lokales Verzeichnis
----------------------------------------------------
+Kopieren der Applikation in ein lokales Verzeichnis auf dem Target
+------------------------------------------------------------------
 Empfohlener Pfad: ~/qt5/
+
 Dateiname: EmbeddedLinuxProj
+
+[Link Build Github](https://github.com/akasilov/EmbeddedLinuxProj/tree/master/RELEASE_BUILD)
 
 Devices
 -------

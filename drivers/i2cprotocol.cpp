@@ -45,7 +45,7 @@ bool I2CProtocol::openDevice()
 void I2CProtocol::closeDevice()
 {
     close(mDeviceFd);
-    qInfo() << "Sensor" << mDeviceName << "closed";
+    //qInfo() << "Sensor" << mDeviceName << "closed";
 }
 
 bool I2CProtocol::writeByte(quint8 byte)
